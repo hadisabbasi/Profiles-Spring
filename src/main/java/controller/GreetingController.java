@@ -8,12 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 import service.GreetingService;
 
 @RestController
-@RequestMapping(path ="/")
+@RequestMapping(path = "/")
 public class GreetingController {
+
+    private final GreetingService greetingService;
+
     @Autowired
-    private GreetingService greetingService;
-    @RequestMapping(path="/hello/{name}", method = RequestMethod.GET)
-    public String Hello(@PathVariable(value = "name") String name){
+    public GreetingController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    @RequestMapping(path = "/hello/{name}", method = RequestMethod.GET)
+    public String Hello(@PathVariable(value = "name") String name) {
         return greetingService.SayHello(name);
     }
 }
